@@ -44,5 +44,10 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, builder.build());
+
+
+        // TODO Set to Shared preferences full to "NO"
+
+        // TODO Set timer or whatever for 2 minutes, if not, release pet
     }
 }
