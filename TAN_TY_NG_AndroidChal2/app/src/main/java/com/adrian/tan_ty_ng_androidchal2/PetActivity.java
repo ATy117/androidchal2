@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class PetActivity extends AppCompatActivity {
 
     public static final int REQ_CODE_EATEN = 0;
+    public static final int REQ_CODE_SELF_RELEASE = 1;
 
     TextView statusTextView, messageTextView;
     Button snackButton, mealButton, kingButton, releaseButton;
@@ -33,6 +34,12 @@ public class PetActivity extends AppCompatActivity {
 
             if (intent.getAction().equals("HUNGRY_BALLISTIC")) {
                 statusTextView.setText("Hungry");
+//                Toast.makeText(getApplicationContext(), "Ight Imma Head Out in 5", Toast.LENGTH_SHORT).show();
+//                scheduleSelfRelease(getNotification("Wandered to feed myself"), 5000);
+            } else if (intent.getAction().equals("RELEASE_THE_KRAKEN")){
+                Intent resetintent = new Intent( PetActivity.this, MainActivity.class);
+                startActivity(resetintent);
+                finish();
             }
         }
     };
@@ -44,6 +51,7 @@ public class PetActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
         //Register the broadcast receiver
         registerReceiver(broadcastReceiver, new IntentFilter("HUNGRY_BALLISTIC"));
+        registerReceiver(broadcastReceiver, new IntentFilter("RELEASE_THE_KRAKEN"));
 
         statusTextView = findViewById(R.id.statusTextView);
         messageTextView = findViewById(R.id.messageTextView);
@@ -135,6 +143,18 @@ public class PetActivity extends AppCompatActivity {
         notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION_ID, 1);
         notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_EATEN, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    //Schedule for self release
+    private void scheduleSelfRelease(Notification notification, int delay){
+        Intent notificationIntent = new Intent(this, SelfReleaseReceiver.class);
+        notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE_ID, 2);
+        notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_SELF_RELEASE, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);

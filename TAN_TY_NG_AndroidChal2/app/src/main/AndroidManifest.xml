@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <receiver android:name=".NotificationHungryAgainReceiver" />
+        <receiver android:name=".SelfReleaseReceiver" />
     </application>
 
 </manifest>
