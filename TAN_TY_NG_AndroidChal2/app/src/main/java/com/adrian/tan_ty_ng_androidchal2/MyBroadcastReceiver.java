@@ -17,5 +17,10 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         //TODO Play Sound
 
         //TODO Create Notification
+
+
+        // TODO Set to Shared preferences full to "NO"
+
+        // TODO Set timer or whatever for 2 minutes, if not, release pet
     }
 }
