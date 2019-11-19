@@ -3,29 +3,47 @@ package com.adrian.tan_ty_ng_androidchal2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class PetActivity extends AppCompatActivity {
+
+    public static final int REQ_CODE_EATEN = 0;
 
     TextView statusTextView, messageTextView;
     Button snackButton, mealButton, kingButton, releaseButton;
 
     SharedPreferences sharedPreferences;
 
+    // Has its own Broadcast Receiver To DO When the Seperate Broadcast is Done
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getAction().equals("HUNGRY_BALLISTIC")) {
+                statusTextView.setText("Hungry");
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pet);
         sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
+        //Register the broadcast receiver
+        registerReceiver(broadcastReceiver, new IntentFilter("HUNGRY_BALLISTIC"));
 
         statusTextView = findViewById(R.id.statusTextView);
         messageTextView = findViewById(R.id.messageTextView);
@@ -33,6 +51,13 @@ public class PetActivity extends AppCompatActivity {
         mealButton = findViewById(R.id.mealButton);
         kingButton = findViewById(R.id.kingButton);
         releaseButton = findViewById(R.id.releaseButton);
+
+        // Set in the beginning if hungry or not
+        if (sharedPreferences.getString("full", "no").equals("yes")){
+            statusTextView.setText("Full");
+        } else {
+            statusTextView.setText("Hungry");
+        }
 
         releaseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +80,9 @@ public class PetActivity extends AppCompatActivity {
                 if (sharedPreferences.getString("full", "no").equals("yes")){
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
-                    startAlert(5);
+                    statusTextView.setText("Full");
+                    Toast.makeText(getApplicationContext(), "Fed Snack, wait 30 Secs", Toast.LENGTH_SHORT).show();
+                    scheduleFullnessNotification(getNotification("Feed in 2 Minutes"), 5000);
                 }
             }
         });
@@ -66,7 +93,9 @@ public class PetActivity extends AppCompatActivity {
                 if (sharedPreferences.getString("full", "no").equals("yes")){
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
-                    startAlert(60);
+                    statusTextView.setText("Full");
+                    Toast.makeText(getApplicationContext(), "Fed Meal, wait 60 Secs", Toast.LENGTH_SHORT).show();
+                    scheduleFullnessNotification(getNotification("Feed in 2 Minutes"), 10000);
                 }
             }
         });
@@ -77,7 +106,9 @@ public class PetActivity extends AppCompatActivity {
                 if (sharedPreferences.getString("full", "no").equals("yes")){
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
-                    startAlert(120);
+                    statusTextView.setText("Full");
+                    Toast.makeText(getApplicationContext(), "Fed King, wait 2 Minutes", Toast.LENGTH_SHORT).show();
+                    scheduleFullnessNotification(getNotification("Feed in 2 Minutes"), 15000);
                 }
             }
         });
@@ -92,20 +123,30 @@ public class PetActivity extends AppCompatActivity {
     }
 
 
-    public void startAlert(int seconds) {
-        System.out.println("fuck");
+    // https://gist.github.com/BrandonSmith/6679223
+    // Schedule the notif
+    private void scheduleFullnessNotification(Notification notification, int delay) {
         sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("full", "yes");
         editor.apply();
 
-        System.out.println("In here");
+        Intent notificationIntent = new Intent(this, NotificationHungryAgainReceiver.class);
+        notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_EATEN, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent intent = new Intent(this, MyBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 2786788, intent, 0);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
-        Toast.makeText(this, "Alarm set in " + seconds + " seconds", Toast.LENGTH_LONG).show();
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("Mind Your Pet");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        return builder.build();
     }
 
 
