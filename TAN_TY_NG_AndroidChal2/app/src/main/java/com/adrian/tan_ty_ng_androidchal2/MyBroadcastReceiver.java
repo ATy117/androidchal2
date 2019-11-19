@@ -24,7 +24,6 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         //TODO Play Sound
         alarm = MediaPlayer.create(context, R.raw.alarm);
         alarm.start();
-        alarm.setLooping(true);
 
         //TODO Create Notification
         String message = "Alarm is alarming";

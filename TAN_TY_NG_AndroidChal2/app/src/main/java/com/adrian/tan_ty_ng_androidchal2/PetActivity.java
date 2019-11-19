@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class PetActivity extends AppCompatActivity {
 
-    TextView statusTextView, messageTextView;
+    TextView messageTextView;
     Button snackButton, mealButton, kingButton, releaseButton;
 
     SharedPreferences sharedPreferences;
@@ -27,7 +27,6 @@ public class PetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pet);
         sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
 
-        statusTextView = findViewById(R.id.statusTextView);
         messageTextView = findViewById(R.id.messageTextView);
         snackButton = findViewById(R.id.snackButton);
         mealButton = findViewById(R.id.mealButton);
@@ -93,13 +92,10 @@ public class PetActivity extends AppCompatActivity {
 
 
     public void startAlert(int seconds) {
-        System.out.println("fuck");
         sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("full", "yes");
         editor.apply();
-
-        System.out.println("In here");
 
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 2786788, intent, 0);
