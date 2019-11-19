@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("has_pet", "yes");
+                editor.putString("new_pet", "yes");
+                editor.putString("full", "no");
                 editor.apply();
 
                 Intent intent = new Intent(MainActivity.this, PetActivity.class);
