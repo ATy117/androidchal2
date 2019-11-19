@@ -100,14 +100,13 @@ public class PetActivity extends AppCompatActivity {
         editor.apply();
 
         System.out.println("In here");
+
         Intent intent = new Intent(this, MyBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), 28, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 2786788, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                + (seconds * 1000), pendingIntent);
-        Toast.makeText(this, "Alarm set in " + seconds + " seconds",
-                Toast.LENGTH_LONG).show();
-        System.out.println("Alarm set in " + seconds + " seconds");
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (seconds * 1000), pendingIntent);
+        Toast.makeText(this, "Alarm set in " + seconds + " seconds", Toast.LENGTH_LONG).show();
     }
+
+
 }
