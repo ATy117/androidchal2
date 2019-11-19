@@ -27,6 +27,7 @@ public class PetActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
 
+    //https://stackoverflow.com/questions/22241705/calling-a-activity-method-from-broadcastreceiver-in-android
     // Has its own Broadcast Receiver To DO When the Seperate Broadcast is Done
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
