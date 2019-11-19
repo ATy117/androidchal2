@@ -33,6 +33,19 @@ public class PetActivity extends AppCompatActivity {
         mealButton = findViewById(R.id.mealButton);
         kingButton = findViewById(R.id.kingButton);
         releaseButton = findViewById(R.id.releaseButton);
+
+        releaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("has_pet", "none");
+                editor.apply();
+
+                Intent intent = new Intent( PetActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     public void startAlert(int seconds) {
