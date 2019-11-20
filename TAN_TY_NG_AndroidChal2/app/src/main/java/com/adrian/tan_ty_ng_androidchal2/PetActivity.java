@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,8 @@ public class PetActivity extends AppCompatActivity {
     Button snackButton, mealButton, kingButton, releaseButton;
 
     SharedPreferences sharedPreferences;
+
+    CountDownTimer cTimer = null;
 
     //https://stackoverflow.com/questions/22241705/calling-a-activity-method-from-broadcastreceiver-in-android
     // Has its own Broadcast Receiver To DO When the Seperate Broadcast is Done
@@ -90,6 +93,8 @@ public class PetActivity extends AppCompatActivity {
                     statusTextView.setText("Full");
                     Toast.makeText(getApplicationContext(), "Fed Snack, wait 30 Secs", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(5000);
+                    cancelTimer();
+                    startTimer(5000);
                 }
             }
         });
@@ -103,6 +108,8 @@ public class PetActivity extends AppCompatActivity {
                     statusTextView.setText("Very Full");
                     Toast.makeText(getApplicationContext(), "Fed Meal, wait 60 Secs", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(10000);
+                    cancelTimer();
+                    startTimer(10000);
                 }
             }
         });
@@ -116,6 +123,8 @@ public class PetActivity extends AppCompatActivity {
                     statusTextView.setText("Bloated");
                     Toast.makeText(getApplicationContext(), "Fed King, wait 2 Minutes", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(15000);
+                    cancelTimer();
+                    startTimer(15000);
                 }
             }
         });
@@ -158,6 +167,24 @@ public class PetActivity extends AppCompatActivity {
         PendingIntent.getBroadcast(this, PetActivity.REQ_CODE_SELF_RELEASE, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
     }
 
+    //start timer function
+    void startTimer(int delay) {
+        cTimer = new CountDownTimer(delay, 1000) {
+            public void onTick(long millisUntilFinished) {
+                messageTextView.setText("Timer: " + millisUntilFinished / 1000 + "s");
+            }
+            public void onFinish() {
+                messageTextView.setText("timer done");
+            }
+        };
+        cTimer.start();
+    }
 
+
+    //cancel timer
+    void cancelTimer() {
+        if(cTimer!=null)
+            cTimer.cancel();
+    }
 
 }
