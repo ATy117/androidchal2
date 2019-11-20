@@ -100,7 +100,7 @@ public class PetActivity extends AppCompatActivity {
                 if (sharedPreferences.getString("full", "no").equals("yes")){
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
-                    statusTextView.setText("Full");
+                    statusTextView.setText("Very Full");
                     Toast.makeText(getApplicationContext(), "Fed Meal, wait 60 Secs", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(10000);
                 }
@@ -113,7 +113,7 @@ public class PetActivity extends AppCompatActivity {
                 if (sharedPreferences.getString("full", "no").equals("yes")){
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
-                    statusTextView.setText("Full");
+                    statusTextView.setText("Bloated");
                     Toast.makeText(getApplicationContext(), "Fed King, wait 2 Minutes", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(15000);
                 }
