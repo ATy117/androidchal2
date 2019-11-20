@@ -20,7 +20,6 @@ public class SelfReleaseReceiver extends BroadcastReceiver {
     private SharedPreferences sharedPreferences;
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Self Release Receiver", Toast.LENGTH_SHORT).show();
 
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(1000);

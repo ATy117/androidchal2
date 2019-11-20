@@ -88,7 +88,6 @@ public class PetActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
                     statusTextView.setText("Full");
-                    Toast.makeText(getApplicationContext(), "Fed Snack, wait 30 Secs", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(5000);
                 }
             }
@@ -101,7 +100,6 @@ public class PetActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
                     statusTextView.setText("Very Full");
-                    Toast.makeText(getApplicationContext(), "Fed Meal, wait 60 Secs", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(10000);
                 }
             }
@@ -114,7 +112,6 @@ public class PetActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
                 } else {
                     statusTextView.setText("Bloated");
-                    Toast.makeText(getApplicationContext(), "Fed King, wait 2 Minutes", Toast.LENGTH_SHORT).show();
                     scheduleFullnessNotification(15000);
                 }
             }

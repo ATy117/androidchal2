@@ -22,7 +22,6 @@ public class NotificationHungryAgainReceiver extends BroadcastReceiver {
     private SharedPreferences sharedPreferences;
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, "Hungry Notif", Toast.LENGTH_SHORT).show();
 
         Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vibrator.vibrate(1000);
@@ -58,11 +57,6 @@ public class NotificationHungryAgainReceiver extends BroadcastReceiver {
         editor.apply();
 
         // TODO Set timer or whatever for 2 minutes, if not, release pet
-        Notification.Builder builder = new Notification.Builder(context);
-        builder.setContentTitle("Bye Bye Pet");
-        builder.setContentText("Wandered to Feed Myself");
-        builder.setSmallIcon(R.drawable.ic_launcher_background);
-        Notification newNotification = builder.build();
         Intent notificationIntent = new Intent(context, SelfReleaseReceiver.class);
         notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE_ID, 2);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, PetActivity.REQ_CODE_SELF_RELEASE, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -70,7 +64,6 @@ public class NotificationHungryAgainReceiver extends BroadcastReceiver {
         long futureInMillis = SystemClock.elapsedRealtime() + 5000;
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
-        Toast.makeText(context, "Ight Imma Head Out in 5", Toast.LENGTH_SHORT).show();
 
 
         // This broadcast shall tell the pet acitivity to start another broadcast
