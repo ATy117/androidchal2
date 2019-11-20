@@ -2,6 +2,7 @@ package com.adrian.tan_ty_ng_androidchal2;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,8 +33,18 @@ public class SelfReleaseReceiver extends BroadcastReceiver {
         //TODO Create Notification
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Notification notification = intent.getParcelableExtra(SELFRELEASE);
+        Intent notifIntent = new Intent(context, MainActivity.class);
+        notifIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, notifIntent.getIntExtra(SelfReleaseReceiver.SELFRELEASE_ID, 1), notifIntent, 0);
+        Notification.Builder builder = new Notification.Builder(context);
+        builder.setContentTitle("Bye Bye Pet");
+        builder.setContentText("Wandered to Feed Myself");
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        builder.setContentIntent(contentIntent);
+        Notification notification = builder.build();
         int id = intent.getIntExtra(SELFRELEASE_ID, 0);
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(id, notification);
 
         sharedPreferences = context.getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);

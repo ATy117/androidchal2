@@ -65,7 +65,6 @@ public class NotificationHungryAgainReceiver extends BroadcastReceiver {
         Notification newNotification = builder.build();
         Intent notificationIntent = new Intent(context, SelfReleaseReceiver.class);
         notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE_ID, 2);
-        notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE, newNotification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, PetActivity.REQ_CODE_SELF_RELEASE, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long futureInMillis = SystemClock.elapsedRealtime() + 5000;

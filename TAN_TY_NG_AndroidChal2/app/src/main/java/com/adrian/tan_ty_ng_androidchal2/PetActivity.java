@@ -158,25 +158,6 @@ public class PetActivity extends AppCompatActivity {
         PendingIntent.getBroadcast(this, PetActivity.REQ_CODE_SELF_RELEASE, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
     }
 
-    //Schedule for self release
-    private void scheduleSelfRelease(Notification notification, int delay){
-        Intent notificationIntent = new Intent(this, SelfReleaseReceiver.class);
-        notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE_ID, 2);
-        notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_SELF_RELEASE, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        long futureInMillis = SystemClock.elapsedRealtime() + delay;
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
-    }
-
-    private Notification getNotification(String content) {
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Mind Your Pet");
-        builder.setContentText(content);
-        builder.setSmallIcon(R.drawable.ic_launcher_background);
-        return builder.build();
-    }
 
 
 }
