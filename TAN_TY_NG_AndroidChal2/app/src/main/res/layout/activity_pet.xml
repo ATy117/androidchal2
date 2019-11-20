@@ -4,55 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/corgi"><![CDATA[
     tools:context=".PetActivity">
+
+
+
+
+
+    ]]>
 
     <Button
         android:id="@+id/snackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="snackPressed"
         android:text="SNACK"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/releaseButton"
-        app:layout_constraintEnd_toStartOf="@+id/mealButton"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageTextView"
-        app:layout_constraintVertical_bias="0.788"
-        android:onClick="snackPressed"/>
-
-    <TextView
-        android:id="@+id/statusTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="STATUS"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/messageTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/messageTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="192dp"
+        android:layout_marginBottom="92dp"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/releaseButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/kingButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="kingClicked"
         android:text="KING MEAL"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/releaseButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mealButton"
-        app:layout_constraintTop_toBottomOf="@+id/messageTextView"
-        android:onClick="kingClicked"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/releaseButton"
@@ -61,29 +55,35 @@
         android:layout_marginBottom="16dp"
         android:text="RELEASE PET"
         android:textColor="#F44336"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="240dp"
-        android:layout_height="236dp"
-        app:layout_constraintBottom_toTopOf="@+id/statusTextView"
+    <TextView
+        android:id="@+id/statusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="STATUS"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/messageTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/mealButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:onClick="mealClicked"
         android:text="MEAL"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/releaseButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageTextView"
-        android:onClick="mealClicked"/>
+        app:layout_constraintEnd_toStartOf="@+id/kingButton"
+        app:layout_constraintStart_toEndOf="@+id/snackButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

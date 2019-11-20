@@ -61,7 +61,7 @@ public class NotificationHungryAgainReceiver extends BroadcastReceiver {
         notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE_ID, 2);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, PetActivity.REQ_CODE_SELF_RELEASE, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        long futureInMillis = SystemClock.elapsedRealtime() + 5000;
+        long futureInMillis = SystemClock.elapsedRealtime() + 120000;
         AlarmManager alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
 

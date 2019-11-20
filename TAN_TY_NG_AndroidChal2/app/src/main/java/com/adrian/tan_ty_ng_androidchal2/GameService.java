@@ -31,7 +31,7 @@ public class GameService extends Service {
         super.onCreate();
 
         initTimer();
-        startTimer(5);
+        startTimer(30);
         PetActivity.controller.initialize();
     }
 

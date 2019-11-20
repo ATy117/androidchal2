@@ -63,7 +63,7 @@ public class PetActivity extends AppCompatActivity {
                 statusTextView.setText("Hungry");
                 gameSrv.resetTimer();
                 gameSrv.initTimer();
-                gameSrv.startTimer(5);
+                gameSrv.startTimer(120);
             } else if (intent.getAction().equals("RELEASE_THE_KRAKEN")){
                 Intent resetintent = new Intent( PetActivity.this, MainActivity.class);
                 startActivity(resetintent);
@@ -81,7 +81,7 @@ public class PetActivity extends AppCompatActivity {
                 notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION_ID, 1);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(PetActivity.this, REQ_CODE_EATEN, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                long futureInMillis = SystemClock.elapsedRealtime() + 5000;
+                long futureInMillis = SystemClock.elapsedRealtime() + 30000;
                 AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
                 alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
             }
@@ -228,33 +228,28 @@ public class PetActivity extends AppCompatActivity {
     public void snackPressed(View view) {
 
         if (sharedPreferences.getString("full", "no").equals("yes")){
-            Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Still Full", Toast.LENGTH_LONG).show();
         } else {
             statusTextView.setText("Full");
-            scheduleFullnessNotification(5000);
+            scheduleFullnessNotification(30000);
         }
     }
 
     public void mealClicked(View view) {
         if (sharedPreferences.getString("full", "no").equals("yes")){
-            Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Still Full", Toast.LENGTH_LONG).show();
         } else {
             statusTextView.setText("Very Full");
-            scheduleFullnessNotification(10000);
+            scheduleFullnessNotification(60000);
         }
     }
 
     public void kingClicked(View view) {
-        kingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (sharedPreferences.getString("full", "no").equals("yes")){
-                    Toast.makeText(getApplicationContext(), "Full", Toast.LENGTH_LONG).show();
-                } else {
-                    statusTextView.setText("Bloated");
-                    scheduleFullnessNotification(15000);
-                }
-            }
-        });
+        if (sharedPreferences.getString("full", "no").equals("yes")){
+            Toast.makeText(getApplicationContext(), "Still Full", Toast.LENGTH_LONG).show();
+        } else {
+            statusTextView.setText("Bloated");
+            scheduleFullnessNotification(120000);
+        }
     }
 }
