@@ -89,7 +89,7 @@ public class PetActivity extends AppCompatActivity {
                 } else {
                     statusTextView.setText("Full");
                     Toast.makeText(getApplicationContext(), "Fed Snack, wait 30 Secs", Toast.LENGTH_SHORT).show();
-                    scheduleFullnessNotification(getNotification("Feed in 2 Minutes"), 5000);
+                    scheduleFullnessNotification(5000);
                 }
             }
         });
@@ -102,7 +102,7 @@ public class PetActivity extends AppCompatActivity {
                 } else {
                     statusTextView.setText("Full");
                     Toast.makeText(getApplicationContext(), "Fed Meal, wait 60 Secs", Toast.LENGTH_SHORT).show();
-                    scheduleFullnessNotification(getNotification("Feed in 2 Minutes"), 10000);
+                    scheduleFullnessNotification(10000);
                 }
             }
         });
@@ -115,7 +115,7 @@ public class PetActivity extends AppCompatActivity {
                 } else {
                     statusTextView.setText("Full");
                     Toast.makeText(getApplicationContext(), "Fed King, wait 2 Minutes", Toast.LENGTH_SHORT).show();
-                    scheduleFullnessNotification(getNotification("Feed in 2 Minutes"), 15000);
+                    scheduleFullnessNotification(15000);
                 }
             }
         });
@@ -132,7 +132,7 @@ public class PetActivity extends AppCompatActivity {
 
     // https://gist.github.com/BrandonSmith/6679223
     // Schedule the notif
-    private void scheduleFullnessNotification(Notification notification, int delay) {
+    private void scheduleFullnessNotification(int delay) {
         sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("full", "yes");
@@ -140,7 +140,6 @@ public class PetActivity extends AppCompatActivity {
 
         Intent notificationIntent = new Intent(this, NotificationHungryAgainReceiver.class);
         notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION_ID, 1);
-        notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, REQ_CODE_EATEN, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;

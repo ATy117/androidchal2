@@ -35,8 +35,18 @@ public class NotificationHungryAgainReceiver extends BroadcastReceiver {
         //TODO Create Notification
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        Notification notification = intent.getParcelableExtra(NOTIFICATION);
+        Intent notifIntent = new Intent(context, MainActivity.class);
+        notifIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, notifIntent.getIntExtra(NotificationHungryAgainReceiver.NOTIFICATION_ID, 1), notifIntent, 0);
+        Notification.Builder bbuilder = new Notification.Builder(context);
+        bbuilder.setContentTitle("Mind Your Pet");
+        bbuilder.setContentText("Feed Me in 2 Minutes");
+        bbuilder.setSmallIcon(R.drawable.ic_launcher_background);
+        bbuilder.setContentIntent(contentIntent);
+        Notification notification = bbuilder.build();
         int id = intent.getIntExtra(NOTIFICATION_ID, 0);
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(id, notification);
 
 
