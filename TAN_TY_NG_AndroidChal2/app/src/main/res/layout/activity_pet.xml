@@ -17,7 +17,8 @@
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/messageTextView"
-        app:layout_constraintVertical_bias="0.788" />
+        app:layout_constraintVertical_bias="0.788"
+        android:onClick="snackPressed"/>
 
     <TextView
         android:id="@+id/statusTextView"
@@ -50,7 +51,8 @@
         app:layout_constraintBottom_toTopOf="@+id/releaseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/mealButton"
-        app:layout_constraintTop_toBottomOf="@+id/messageTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/messageTextView"
+        android:onClick="kingClicked"/>
 
     <Button
         android:id="@+id/releaseButton"
@@ -82,5 +84,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/messageTextView"
+        android:onClick="mealClicked"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

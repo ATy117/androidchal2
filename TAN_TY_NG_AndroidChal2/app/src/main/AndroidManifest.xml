@@ -22,6 +22,8 @@
         </activity>
         <receiver android:name=".NotificationHungryAgainReceiver" />
         <receiver android:name=".SelfReleaseReceiver" />
+
+        <service android:name=".GameService"></service>
     </application>
 
 </manifest>
