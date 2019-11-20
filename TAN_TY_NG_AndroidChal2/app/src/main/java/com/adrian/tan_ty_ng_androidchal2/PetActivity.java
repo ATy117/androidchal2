@@ -35,8 +35,6 @@ public class PetActivity extends AppCompatActivity {
 
             if (intent.getAction().equals("HUNGRY_BALLISTIC")) {
                 statusTextView.setText("Hungry");
-//                Toast.makeText(getApplicationContext(), "Ight Imma Head Out in 5", Toast.LENGTH_SHORT).show();
-//                scheduleSelfRelease(getNotification("Wandered to feed myself"), 5000);
             } else if (intent.getAction().equals("RELEASE_THE_KRAKEN")){
                 Intent resetintent = new Intent( PetActivity.this, MainActivity.class);
                 startActivity(resetintent);
@@ -148,6 +146,17 @@ public class PetActivity extends AppCompatActivity {
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+
+        // Cancel releasing the kraken
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("Bye Bye Pet");
+        builder.setContentText("Wandered to Feed Myself");
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        Notification newNotification = builder.build();
+        Intent notifIntent = new Intent(this, SelfReleaseReceiver.class);
+        notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE_ID, 2);
+        notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE, newNotification);
+        PendingIntent.getBroadcast(this, PetActivity.REQ_CODE_SELF_RELEASE, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
     }
 
     //Schedule for self release
