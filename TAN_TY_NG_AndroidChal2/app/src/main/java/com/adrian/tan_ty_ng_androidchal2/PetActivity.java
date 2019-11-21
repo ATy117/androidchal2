@@ -128,6 +128,20 @@ public class PetActivity extends AppCompatActivity {
                 editor.putString("full", "no");
                 editor.apply();
 
+                Intent notificationIntent = new Intent(getApplicationContext(), NotificationHungryAgainReceiver.class);
+                notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION_ID, 1);
+                PendingIntent.getBroadcast(getApplicationContext(), REQ_CODE_EATEN, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
+
+                Notification.Builder builder = new Notification.Builder(getApplicationContext());
+                builder.setContentTitle("Bye Bye Pet");
+                builder.setContentText("Wandered to Feed Myself");
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                Notification newNotification = builder.build();
+                Intent notifIntent = new Intent(getApplicationContext(), SelfReleaseReceiver.class);
+                notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE_ID, 2);
+                notificationIntent.putExtra(SelfReleaseReceiver.SELFRELEASE, newNotification);
+                PendingIntent.getBroadcast(getApplicationContext(), PetActivity.REQ_CODE_SELF_RELEASE, notifIntent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
+
                 Intent intent = new Intent( PetActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
