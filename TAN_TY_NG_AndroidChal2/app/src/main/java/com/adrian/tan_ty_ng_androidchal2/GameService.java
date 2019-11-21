@@ -3,7 +3,9 @@ package com.adrian.tan_ty_ng_androidchal2;
 
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
@@ -31,8 +33,16 @@ public class GameService extends Service {
         super.onCreate();
 
         initTimer();
-        startTimer(30);
-        PetActivity.controller.initialize();
+        System.out.println("On Create ");
+
+        SharedPreferences sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
+        System.out.println(sharedPreferences.getString("new_pet", "yes"));
+        if (sharedPreferences.getString("new_pet", "yes").equals("yes")){
+            System.out.println("New Pet");
+            startTimer(30);
+            PetActivity.controller.initialize();
+        }
+
     }
 
     @Override

@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
+        System.out.println(sharedPreferences.getString("new_pet", "yes") + " in Main");
 
         if (!sharedPreferences.contains("has_pet")) {
             SharedPreferences.Editor editor = sharedPreferences.edit();

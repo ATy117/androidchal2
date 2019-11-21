@@ -75,6 +75,7 @@ public class PetActivity extends AppCompatActivity {
                 sharedPreferences = getSharedPreferences("android_chal_2", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("full", "yes");
+                editor.putString("new_pet", "no");
                 editor.apply();
 
                 Intent notificationIntent = new Intent(PetActivity.this, NotificationHungryAgainReceiver.class);
@@ -188,9 +189,7 @@ public class PetActivity extends AppCompatActivity {
 
         // Check if new pet
         if (sharedPreferences.getString("new_pet", "no").equals("yes")){
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("new_pet", "no");
-            editor.apply();
+
         }
     }
 
