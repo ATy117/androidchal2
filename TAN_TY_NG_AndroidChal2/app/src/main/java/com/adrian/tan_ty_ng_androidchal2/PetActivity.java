@@ -216,7 +216,7 @@ public class PetActivity extends AppCompatActivity {
         editor.apply();
         gameSrv.resetTimer();
         gameSrv.initTimer();
-        gameSrv.startTimer(delay/1000);
+
 
         Intent notificationIntent = new Intent(this, NotificationHungryAgainReceiver.class);
         notificationIntent.putExtra(NotificationHungryAgainReceiver.NOTIFICATION_ID, 1);
@@ -225,6 +225,7 @@ public class PetActivity extends AppCompatActivity {
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        gameSrv.startTimer(delay/1000);
 
         // Cancel releasing the kraken
         Notification.Builder builder = new Notification.Builder(this);
