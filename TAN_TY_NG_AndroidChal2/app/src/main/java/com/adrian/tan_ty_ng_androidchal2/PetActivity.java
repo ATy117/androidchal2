@@ -224,8 +224,9 @@ public class PetActivity extends AppCompatActivity {
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
         gameSrv.startTimer(delay/1000);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+
 
         // Cancel releasing the kraken
         Notification.Builder builder = new Notification.Builder(this);
